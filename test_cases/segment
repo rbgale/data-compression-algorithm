@@ -1,0 +1,15 @@
+from concurrent import futures
+import grpc
+import sys
+import paho.mqtt.client as mqtt
+import json
+
+from proto.gen.service_pb2_grpc import *
+from proto.gen.service_pb2 import *
+from common.constants import *
+
+
+class ServiceImpl(SatelliteServiceServicer):
+    def __init__(self, username, password, ip):
+        print("Connecting to MQTT Broker on {0}...".format(ip))
+        self.client_ = mqtt.Client()
